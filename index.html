@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dolphis J. Bouie III</title>
+<meta name="description" content="Dolphis J. Bouie III, data analyst in Baton Rouge. Portfolio, resume, services, and project requests.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one long page, left-aligned editorial column with a coordinate "map grid" hero; sections stack, cards wrap to one column on phones. */
+:root {
+  --bg: #f5f7f6;
+  --surface: #ffffff;
+  --ink: #13201f;
+  --muted: #566664;
+  --line: #d6dedc;
+  --accent: #0e6b63;      /* deep teal: data / maps */
+  --accent-ink: #ffffff;
+  --signal: #c98a12;      /* amber map pin */
+  --grid: rgba(14,107,99,.09);
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --step--1: .85rem; --step-0: 1rem; --step-1: 1.25rem; --step-2: 1.6rem; --step-3: 2.2rem; --step-4: clamp(2.4rem, 6vw, 4rem);
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1615; --surface: #152120; --ink: #e6eeec; --muted: #9bb0ad; --line: #26383a;
+    --accent: #4fc2b6; --accent-ink: #0b1514; --signal: #e9b54a; --grid: rgba(79,194,182,.08);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1615; --surface: #152120; --ink: #e6eeec; --muted: #9bb0ad; --line: #26383a;
+  --accent: #4fc2b6; --accent-ink: #0b1514; --signal: #e9b54a; --grid: rgba(79,194,182,.08);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: var(--step-0); line-height: 1.6;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--signal); outline-offset: 2px;
+}
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; text-wrap: balance; margin: 0; }
+h2 { font-size: var(--step-3); font-weight: 800; letter-spacing: -.01em; }
+h3 { font-size: var(--step-1); font-weight: 700; }
+p { margin: 0; }
+.label {
+  font-family: var(--font-mono); font-size: var(--step--1); letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* Nav */
+header.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+header.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; flex-wrap: wrap; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: var(--step-1); color: var(--ink); text-decoration: none; }
+.brand span { color: var(--accent); }
+nav ul { list-style: none; display: flex; gap: 18px; margin: 0; padding: 0; flex-wrap: wrap; }
+nav a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: .95rem; }
+nav a:hover { color: var(--ink); }
+
+/* Hero */
+.hero {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  border-bottom: 1px solid var(--line);
+}
+.hero .wrap { padding-block: 72px 56px; display: grid; gap: 22px; }
+.hero h1 { font-size: var(--step-4); font-weight: 800; letter-spacing: -.02em; max-width: 14ch; }
+.hero .lede { font-size: var(--step-1); color: var(--muted); max-width: 58ch; }
+.coord { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); }
+.pin { width: 12px; height: 12px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--signal); flex: none; }
+.actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  display: inline-block; padding: 12px 20px; border-radius: 999px; font-weight: 600;
+  text-decoration: none; border: 1.5px solid var(--accent); cursor: pointer; font: inherit; font-weight: 600;
+}
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn:hover { filter: brightness(1.08); }
+
+/* Sections */
+section { scroll-margin-top: 70px; }
+section > .wrap { padding-block: 72px; display: grid; gap: 32px; }
+.section-head { display: grid; gap: 10px; max-width: 65ch; align-content: start; }
+.section-head p { color: var(--muted); }
+.alt { background: var(--surface); border-block: 1px solid var(--line); }
+
+/* Portfolio */
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 20px; }
+.project {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 24px; display: grid; gap: 12px; align-content: start; min-width: 0;
+}
+.project.draft { border-style: dashed; background: transparent; }
+.project .meta { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.project p { color: var(--muted); }
+.result { font-family: var(--font-mono); font-size: .9rem; color: var(--ink); border-top: 1px solid var(--line); padding-top: 12px; }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
+.tags li { font-family: var(--font-mono); font-size: .75rem; padding: 3px 8px; border-radius: 4px; background: var(--bg); border: 1px solid var(--line); color: var(--muted); }
+
+/* Services */
+.services { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.service { padding: 24px 20px 24px 0; border-bottom: 1px solid var(--line); display: grid; gap: 8px; align-content: start; min-width: 0; }
+.service p { color: var(--muted); }
+.service .tool { font-family: var(--font-mono); font-size: .8rem; color: var(--accent); }
+
+/* Resume */
+.resume-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 48px; }
+@media (max-width: 760px) { .resume-grid { grid-template-columns: 1fr; gap: 36px; } }
+.timeline { display: grid; gap: 28px; }
+.job { display: grid; gap: 6px; padding-left: 18px; border-left: 2px solid var(--line); }
+.job.current { border-left-color: var(--accent); }
+.job .when { font-family: var(--font-mono); font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.job .org { color: var(--muted); font-weight: 500; }
+.job ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 4px; }
+.side { display: grid; gap: 28px; align-content: start; }
+.side h3 { font-size: var(--step-0); margin-bottom: 8px; }
+.side p, .side li { color: var(--muted); font-size: .95rem; }
+.side ul { margin: 0; padding-left: 18px; }
+
+/* Form */
+.request { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 48px; }
+@media (max-width: 760px) { .request { grid-template-columns: 1fr; gap: 28px; } }
+form { display: grid; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
+.field { display: grid; gap: 6px; min-width: 0; }
+label { font-weight: 600; font-size: .9rem; }
+input, select, textarea {
+  font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px 12px; width: 100%;
+}
+textarea { min-height: 130px; resize: vertical; }
+.hint { font-size: .8rem; color: var(--muted); }
+.form-status { font-size: .95rem; padding: 12px 14px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line); }
+.steps { display: grid; gap: 14px; margin: 14px 0 0; padding: 0; list-style: none; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 32px 1fr; gap: 12px; color: var(--muted); }
+.steps li::before { content: counter(s); font-family: var(--font-mono); font-weight: 500; color: var(--accent); border: 1.5px solid var(--accent); border-radius: 50%; width: 28px; height: 28px; display: grid; place-items: center; font-size: .85rem; }
+.steps strong { color: var(--ink); }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { padding-block: 28px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--muted); font-size: .9rem; }
+.copy-email { font-family: var(--font-mono); user-select: all; color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Dolphis<span>.</span></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#work">Portfolio</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#request">Request</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <span class="coord"><span class="pin" aria-hidden="true"></span>30.4515° N, 91.1871° W · Baton Rouge, LA</span>
+      <h1>I turn messy records into numbers people can trust.</h1>
+      <p class="lede">I'm Dolphis Bouie, a Business Technology Analyst on the data team at Louisiana State Police and an M.S. in Analytics candidate at LSU. I clean and validate data, automate the tedious parts with Python, and build Tableau reporting that holds up in an annual report.</p>
+      <div class="actions">
+        <a class="btn primary" href="#request">Request a project</a>
+        <a class="btn ghost" href="#work">See my work</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Portfolio</span>
+        <h2>Selected work</h2>
+        <p>Projects from my current role and my graduate coursework. Work projects are described without any agency data.</p>
+      </div>
+      <div class="projects">
+        <article class="project">
+          <div class="meta"><span class="label">Louisiana State Police · 2026</span></div>
+          <h3>Filling in missing locations with geocoding</h3>
+          <p>About 500 records had addresses but no map coordinates, so they couldn't be mapped or analyzed by location. I introduced Python to the team's cleaning workflow and wrote a script that converts each address to latitude and longitude.</p>
+          <p class="result">~500 records geocoded and ready for spatial analysis</p>
+          <ul class="tags"><li>Python</li><li>Geocoding</li><li>Data cleaning</li></ul>
+        </article>
+        <article class="project">
+          <div class="meta"><span class="label">Louisiana State Police · 2026</span></div>
+          <h3>Calculated fields for the annual report</h3>
+          <p>I pulled and examined records from the Mark43 records system, then built Tableau calculated fields and visualizations so the agency's annual report figures were computed the same way every time.</p>
+          <p class="result">Figures used in the agency's annual reports</p>
+          <ul class="tags"><li>Tableau</li><li>Mark43</li><li>Data validation</li></ul>
+        </article>
+        <article class="project">
+          <div class="meta"><span class="label">LSU MSA · Practicum · Fall 2026</span></div>
+          <h3>Customer analytics for a professional sports organization</h3>
+          <p>A semester-long consulting project with an industry client. Working on a student team, I analyzed customer data to support the client's fan engagement and retention decisions, and I co-led one section of the final analysis and recommendations.</p>
+          <p class="result">Final recommendations delivered to the client. Client data and findings are confidential.</p>
+          <ul class="tags"><li>Customer analytics</li><li>Teamwork</li><li>Client presentation</li></ul>
+        </article>
+        <article class="project draft">
+          <div class="meta"><span class="label">LSU MSA · Visual Analytics</span></div>
+          <h3>Dashboard project (to be added)</h3>
+          <p>Placeholder for a Tableau or Power BI dashboard. A link to Tableau Public and one screenshot work well here.</p>
+          <ul class="tags"><li>Tableau</li><li>Power BI</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Services</span>
+        <h2>What I can help with</h2>
+        <p>Freelance and short-term work for small businesses, nonprofits, and teams that need their data in better shape.</p>
+      </div>
+      <div class="services">
+        <div class="service">
+          <h3>Data cleaning &amp; validation</h3>
+          <p>Find duplicates, gaps, and inconsistent entries, fix them, and document what changed.</p>
+          <span class="tool">Excel · Python · SQL</span>
+        </div>
+        <div class="service">
+          <h3>Dashboards &amp; reports</h3>
+          <p>Tableau or Power BI dashboards built around the questions you actually ask each month.</p>
+          <span class="tool">Tableau · Power BI</span>
+        </div>
+        <div class="service">
+          <h3>Python automation</h3>
+          <p>Scripts that take over repetitive spreadsheet work, including address geocoding.</p>
+          <span class="tool">Python · pandas</span>
+        </div>
+        <div class="service">
+          <h3>Database queries</h3>
+          <p>SQL queries and simple database setup so your data lives in one reliable place.</p>
+          <span class="tool">SQL Server · MySQL</span>
+        </div>
+        <div class="service">
+          <h3>Tableau training</h3>
+          <p>One-on-one help for people new to Tableau, from first chart to calculated fields.</p>
+          <span class="tool">Tableau</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="resume">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Resume</span>
+        <h2>Experience &amp; education</h2>
+        <p><a href="resume.pdf" target="_blank" rel="noopener">Download the PDF resume</a></p>
+      </div>
+      <div class="resume-grid">
+        <div class="timeline">
+          <div class="job current">
+            <span class="when">Aug 2026 – Present</span>
+            <h3>Business Technology Analyst</h3>
+            <span class="org">Louisiana State Police · Technology &amp; Business Support, Data Team</span>
+            <ul>
+              <li>Clean and validate law enforcement operational data so it is accurate and ready for analysis.</li>
+              <li>Introduced Python to the data-cleaning workflow; built a geocoding script that filled in location data for ~500 records.</li>
+              <li>Extract and examine records from the Mark43 records management system for analysis and reporting requests.</li>
+              <li>Develop Tableau calculated fields and visualizations used in the agency's annual reports.</li>
+              <li>Mentored a new hire with no prior Tableau experience.</li>
+            </ul>
+          </div>
+          <div class="job">
+            <span class="when">Jun 2025 – Aug 2026</span>
+            <h3>Branch Ambassador</h3>
+            <span class="org">Capital One</span>
+            <ul>
+              <li>Peer Facilitator who coached associates; recognized as a Product Knowledge SME.</li>
+              <li>Handled transactions under strict audit, security, and fraud-mitigation procedures.</li>
+            </ul>
+          </div>
+          <div class="job">
+            <span class="when">Apr 2024 – Jun 2025</span>
+            <h3>Extrusion Operator</h3>
+            <span class="org">Diamond Plastics Corporation</span>
+            <ul>
+              <li>Tracked hourly production measurements and documented variances against quality specifications.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="side">
+          <div>
+            <h3>Education</h3>
+            <p><strong>M.S. in Analytics</strong>, Louisiana State University<br>Expected Mar 2027 · GPA 3.64</p>
+            <p style="margin-top:10px"><strong>B.S. in Management Information Systems</strong>, minor in Analytics, Louisiana State University · Dec 2023</p>
+          </div>
+          <div>
+            <h3>Skills</h3>
+            <ul>
+              <li>Python, SQL, SQL Server, MySQL</li>
+              <li>Regression, classification, clustering</li>
+              <li>Data cleaning, ETL, data quality validation</li>
+              <li>Tableau, Power BI, Excel, JMP, AWS, Mark43</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="request" class="alt">
+    <div class="wrap request">
+      <div class="section-head">
+        <span class="label">Request</span>
+        <h2>Start a project</h2>
+        <p>Tell me what you're working with and what you need. I'll reply within two business days.</p>
+        <ol class="steps">
+          <li><span><strong>Send the form.</strong> A few sentences about your data and goal is enough.</span></li>
+          <li><span><strong>We talk.</strong> A short call to scope the work and timeline.</span></li>
+          <li><span><strong>I deliver.</strong> Clean data, a dashboard, or a script, with notes on how it works.</span></li>
+        </ol>
+      </div>
+      <!-- Replace YOUR_FORM_ID with the ID from your Formspree form (formspree.io) -->
+      <form id="request-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="row">
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" required autocomplete="name"></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
+        </div>
+        <div class="field"><label for="f-org">Organization <span class="hint">(optional)</span></label><input id="f-org" name="organization" autocomplete="organization"></div>
+        <div class="row">
+          <div class="field">
+            <label for="f-service">What do you need?</label>
+            <select id="f-service" name="service" required>
+              <option value="">Choose one</option>
+              <option>Data cleaning &amp; validation</option>
+              <option>Dashboard or report</option>
+              <option>Python automation</option>
+              <option>Database queries</option>
+              <option>Tableau training</option>
+              <option>Job opportunity</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-when">Timeline</label>
+            <select id="f-when" name="timeline">
+              <option>Flexible</option>
+              <option>Within 2 weeks</option>
+              <option>Within a month</option>
+              <option>1–3 months</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="f-msg">Project details</label><textarea id="f-msg" name="message" required placeholder="What data do you have, and what do you want to learn or build from it?"></textarea></div>
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn primary" type="submit" id="f-submit">Send request</button>
+        <p class="form-status" id="form-status" role="status" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Dolphis J. Bouie III</span>
+    <span>Email <span class="copy-email">dolphisjbouieiii@gmail.com</span> · <a href="https://www.linkedin.com/in/dolphis-bouie" target="_blank" rel="noopener">LinkedIn</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var form = document.getElementById('request-form');
+  var status = document.getElementById('form-status');
+  var btn = document.getElementById('f-submit');
+  function show(msg) { status.textContent = msg; status.hidden = false; }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (form.action.indexOf('YOUR_FORM_ID') !== -1) {
+      show('This form is not connected yet. Once a Formspree form ID is added, requests will arrive by email.');
+      return;
+    }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+      .then(function (r) {
+        if (r.ok) { form.reset(); show('Thanks, your request was sent. I will reply within two business days.'); }
+        else { show('The request did not go through. Please try again, or email me directly.'); }
+      })
+      .catch(function () { show('The request did not go through. Check your connection and try again, or email me directly.'); })
+      .finally(function () { btn.disabled = false; btn.textContent = 'Send request'; });
+  });
+})();
+</script>
+</body>
+</html>
